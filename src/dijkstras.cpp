@@ -1,31 +1,5 @@
 #include "dijkstras.h"
 
-istream& operator>>(istream& in, Graph& G) {
-    if (!(in >> G.numVertices)) {
-        throw runtime_error("Unable to read number of vertices");
-    }
-    G.resize(G.numVertices);
-
-    for (Edge e; in >> e;) {
-        G[e.src].push_back(e);
-    }
-    return in;
-}
-
-ostream& operator<<(ostream& out, const Edge& e) {
-    out << "(" << e.src << "->" << e.dst << ", w=" << e.weight << ")";
-    return out;
-}
-
-void file_to_graph(const string& filename, Graph& G) {
-    ifstream fin(filename);
-    if (!fin) {
-        throw runtime_error("Cannot open file: " + filename);
-    }
-    fin >> G;
-    fin.close();
-}
-
 struct Node {
     int vertex;
     int dist;
